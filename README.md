@@ -1,0 +1,2 @@
+# Themis
+Simple Discord Bot
