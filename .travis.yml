@@ -1,0 +1,8 @@
+dist: trusty
+language: node_js
+node_js:
+  - "7.3.0"
+install:
+  - npm install
+script:
+  - npm test
