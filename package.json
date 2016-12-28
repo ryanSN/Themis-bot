@@ -2,10 +2,11 @@
   "name": "themis-bot",
   "version": "0.0.1",
   "description": "Simple bot for Discord app",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "test:debug": "mocha --debug-brk"
+    "test:debug": "mocha --debug-brk",
+    "start": "index.js"
   },
   "repository": {
     "type": "git",
@@ -16,13 +17,22 @@
     "discord",
     "node"
   ],
-  "author": "ryanSN",
+  "author": "Ryan Chatterton (ryanSN)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ryanSN/Themis-bot/issues"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "coveralls": "^2.11.15",
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.2.0"
+  },
+  "dependencies": {
+    "discord.js": "^10.0.1",
+    "rollbar": "^0.6.3"
   }
 }

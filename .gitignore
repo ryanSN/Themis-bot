@@ -6,6 +6,10 @@ npm-debug.log*
 # Coverage directory used by tools like istanbul
 coverage
 
+# Removed config.json file
+config.json
+config.js
+
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
