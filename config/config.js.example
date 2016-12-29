@@ -1,0 +1,9 @@
+module.exports = {
+  prefix: '!',
+
+  // https://discordapp.com/developers/applications/me
+  token: '',
+  client_id: '',
+
+  rollbar: ''
+};
