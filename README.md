@@ -3,7 +3,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/ryansn/themis-bot/badge.svg)](https://snyk.io/test/github/ryansn/themis-bot)
 
 # Themis
-A Simple Discord chat bot using the Discord.js(https://github.com/hydrabolt/discord.js/) API library.
+A Simple Discord chat bot using the [Discord.js](https://github.com/hydrabolt/discord.js/) API library.
 
 ## Getting Started
 currently this bot can only be self hosted.  
