@@ -16,7 +16,7 @@ currently this bot can only be self hosted.
 
 ## Local Development / installation
 ####
-- install [node.js]
+- install [node.js](https://nodejs.org/en/)
 - Run `npm install`
 - Run `npm start`
 
