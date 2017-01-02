@@ -2,7 +2,7 @@ const app     = require('../../src/app');
 const chai    = require('chai');
 const sinon   = require('sinon');
 const Discord = require('discord.js');
-const config  = require('../../config/config');
+const config  = require('../../config/config.test');
 const P       = require('bluebird');
 const EventEmitter = require('events').EventEmitter;
 
