@@ -1,6 +1,6 @@
 const ping = (bot, evt) => {
-  evt.reply('pong');
-  return;
+  console.log(evt);
+  return evt.reply('pong');
 };
 
 module.exports = ping;

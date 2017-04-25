@@ -1,5 +1,5 @@
-const Discord = require('discord.js');
-const config = require('../config/config');
+const Discord  = require('discord.js');
+const config   = require('../config/config');
 const commands = require('./commands');
 
 /**
@@ -17,13 +17,20 @@ const callCmd = (cmd, bot, evt, suffix) => {
  * Start Method of the bot
  * @param  {Object} rollbar
  */
-const start = (rollbar) => {
-  const bot = new Discord.Client();
-
+const start = (bot, rollbar) => {
+  bot = bot || new Discord.Client();
   // handle any errors from lib / discord
   bot.on('error', err => {
     rollbar.log(err);
     console.log(err);
+  });
+
+  // handles diconnect logging
+  bot.on('disconnect', (error) => {
+    if (error) {
+      rollbar.log(error);
+    }
+    console.log('disconnect');
   });
 
   bot.login(config.token);
@@ -47,6 +54,7 @@ const start = (rollbar) => {
     return;
   });
 
+  return;
 };
 
 module.exports = {

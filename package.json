@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "mocha",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --compilers js:babel-register -R spec",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -R",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -R",
     "test:debug": "mocha --debug-brk",
     "coveralls": "./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
@@ -25,11 +25,13 @@
     "url": "https://github.com/ryanSN/Themis-bot/issues"
   },
   "devDependencies": {
+    "bluebird": "^3.4.7",
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "eslint": "^3.12.2",
     "istanbul": "^1.0.0-alpha.2",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7"
   },
   "dependencies": {
     "discord.js": "^11.0.0",
