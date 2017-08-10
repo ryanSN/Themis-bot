@@ -1,7 +1,0 @@
-[
-  { "require": "./commands/ping"},
-  { "require": "./commands/uptime"},
-  { "require": "./commands/roll" },
-  { "fn": "robot => robot.addErrorHandler(err => console.error(err))"},
-  { "require": "./errorHandlers/rollbar"}
-]

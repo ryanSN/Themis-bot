@@ -3,8 +3,5 @@ const ping = (bot, evt) => {
   return;
 };
 
-const register = robot => {
-  robot.addCommand('ping', ping);
-};
-
-module.exports = register;
+exports.name = 'ping';
+exports.cmd = ping;

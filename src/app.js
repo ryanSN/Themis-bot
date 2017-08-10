@@ -1,23 +1,26 @@
 const Discord = require('discord.js');
-const _ = require('lodash');
 const config = require('../config/config');
-const scanPlugins = require('./plugin');
+const helpers = require('./helpers');
 
-let robot = scanPlugins(_.omit(config, ['token', 'client_id']));
+const commandDirectory = helpers.resolvePath(__dirname, 'commands');
+const eventsDirectory = helpers.resolvePath(__dirname, 'events');
+
+// discover all of the chatbot commands
+const commands = helpers.loadCommands(commandDirectory);
 
 /**
  * Method that runs the Commands
  * @param  {Function} cmd  - the command we want to call
  * @param  {Object} bot    - the client object
- * @param  {Object} evt    - the event that triggered the command
+ * @param  {Object} msg    - the event that triggered the command
  * @param  {String} suffix - any child commands
  */
-const callCmd = (cmd, bot, evt, suffix) => {
-  cmd(bot, evt, suffix);
-};
-
-const handleError = (client, err) => {  
-  robot.errorHandlers.forEach(handler => handler(err));
+const callCmd = (cmd, bot, msg, suffix) => {
+  try{
+    cmd(bot, msg, suffix);
+  } catch(err){
+    bot.emit('error', err);
+  }
 };
 
 const handleMessage = (client, msg) => {
@@ -27,7 +30,7 @@ const handleMessage = (client, msg) => {
 
   const command = msg.content.toLowerCase().split(' ')[0].substring(1);
   const suffix = msg.content.substring(command.length + 2);
-  const cmd = robot.commands[command];
+  const cmd = commands[command];
 
   if (cmd) {
     callCmd(cmd, client, msg, suffix);
@@ -42,25 +45,14 @@ const handleMessage = (client, msg) => {
 const start = () => {
   const client = new Discord.Client();
 
-  client.on('error', err => handleError(client, err));
   client.on('message', (msg) => handleMessage(client, msg));
-  client.on('disconnect', evt => {
-    console.info(`[Disconnected] Clean: ${evt.wasClean} Code ${evt.code}; Reason: ${evt.reason}`);
-  });
-  client.on('reconnecting', () => {
-    console.info('[Reconnecting] Attempting to reconnect to discord...');
-  });
-  client.on('guildCreate', guild => {
-    console.info(`[Join Server] ${guild.name}`);
-  });
-  client.on('ready', () => {
-    console.info('[Ready] Bot is ready');
-  });
+  helpers.loadEvents(client, eventsDirectory);
 
   client.login(config.token)
     .then(() => {
       console.info(`Ready to serve in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
-      
+      console.info(`Command prefix: ${config.prefix}`);
+
       client.generateInvite(['READ_MESSAGES', 'SEND_MESSAGES', 'MENTION_EVERYONE', 'EMBED_LINKS'])
         .then(link => {
           console.info(`Invite the bot: ${link}`);
