@@ -3,4 +3,8 @@ const uptime = (bot, evt) => {
   return;
 };
 
-module.exports = uptime;
+const register = robot => {
+  robot.addCommand('uptime', uptime);
+};
+
+module.exports = register;
