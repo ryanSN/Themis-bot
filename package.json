@@ -35,6 +35,6 @@
     "discord.js": "^11.1.0",
     "lodash": "^4.17.4",
     "rollbar": "^2.0.4",
-    "rolldice": "^1.0.0"
+    "rolldice": "^2.0.0"
   }
 }
