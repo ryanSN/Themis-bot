@@ -1,10 +1,11 @@
 const Discord = require('discord.js');
 const config = require('../config/config');
 const helpers = require('./helpers');
+const PluginCollection = require('./PluginCollection');
 
 const pluginsDirectory = helpers.resolvePath(__dirname, 'plugins');
 
-const plugins = helpers.loadPlugins(pluginsDirectory);
+const plugins = PluginCollection.create(pluginsDirectory);
 plugins.initialize(config);
 
 const commands = plugins.getCommandHash();

@@ -1,6 +1,5 @@
-'use strict';
-const _ = require('lodash');
-const Plugin = require('./Plugin');
+const api = require('./api');
+const helpers = require('./helpers/');
 
 const PROHIBITED_CONFIG_SECTIONS = [
   'discord',
@@ -11,56 +10,55 @@ const PROHIBITED_CONFIG_SECTIONS = [
 /**
  * A list of supported events that plugins may process
  */
-const KNOWN_EVENTS = [
-  'ready',
-  'error',
-  'disconnect',
-  'reconnecting',
-  'guildCreate'
-];
+const KNOWN_EVENTS = helpers.getValues(api.events);
 
 class PluginCollection {
   /**
    * Create a new plugin collection, validating the scanned plugins
-   * @param {Function[]} protoPlugins - the array of plugin setup functions
+   * @param {Function[]} plugins - the array of plugin setup functions
    */
-  constructor(protoPlugins){
-    if(!protoPlugins) protoPlugins = [];
-    if(!(protoPlugins instanceof Array)){
+  constructor(plugins){
+    if(!plugins) plugins = [];
+    if(!(plugins instanceof Array)){
       throw new Error('plugins must be provided as an array of functions');
     }
-    if(!_.every(protoPlugins, x => x instanceof Function)){
-      throw new Error('plugins must be provided as an array of functions');      
+    for(let p of plugins){
+      if(!(p instanceof api.Plugin)){
+        throw new Error('plugins must export an instance of api.Plugin');
+      }
     }
 
-    let plugins = protoPlugins.map(x => x(Plugin));
-
-    let duplicatePlugins = _(plugins)
-      .groupBy(p => p.name)
-      .map((val, key) => ({ name: key, count: val.length }))
-      .filter(x => x.count > 1)
-      .value();
+    let duplicatePlugins = helpers.getDuplicates(plugins, plugin => plugin.name);
     if(duplicatePlugins.length){
       throw new Error('The following plugins have duplicate names: ' + duplicatePlugins.map(x=>x.name).join(', '));
     }
-    let duplicateCommands = _(plugins).flatMap(p => p.commands)
-      .groupBy(c => c.name)
-      .map((val,key) => ({ name: key, count: val.length }))
-      .filter(x=> x.count > 1)
-      .value();
+
+    let allCommands = helpers.flatten(plugins.map(p => p.commands));
+    let duplicateCommands = helpers.getDuplicates(allCommands, c => c.name);
+
     if(duplicateCommands.length){
       throw new Error('The following duplicate commands have been detected: ' + duplicateCommands.map(x => x.name).join(', '));
     }
-    /** @member {Plugin[]} plugins - the array of plugins for this collection */
+    /** @member {themisPlugins.Plugin[]} plugins - the array of plugins for this collection */
     this.plugins = plugins;
   }
 
   /**
+   * Creates a new plugin collection from the specified directory.
+   * @param {string} pluginDirectory - the directory where the plugins are found
+   * @returns {PluginCollection}
+   */
+  static create(pluginDirectory){
+    let plugins = helpers.requireAll(pluginDirectory);
+    return new PluginCollection(plugins);
+  }
+
+  /**
    * Retrieves all the commands exposed by plugins.
-   * @returns {Plugin.Command[]}
+   * @returns {Command[]}
    */
   getCommands() {
-    return _.flatMap(this.plugins, p => p.commands);
+    return helpers.flatten(this.plugins.map(p => p.commands));
   }
 
   /**
@@ -80,10 +78,15 @@ class PluginCollection {
    * @param {*} config 
    */
   initialize(config) {
+    let publicConfig = {};
+    if(config.hasOwnProperty('public')){
+      publicConfig = config.public;
+    }
+
     this.plugins.forEach(plugin => {
-      let pluginConfig = {};
+      let pluginConfig = { public: publicConfig };
       if(config.hasOwnProperty(plugin.name) && PROHIBITED_CONFIG_SECTIONS.indexOf(plugin.name) < 0){
-        pluginConfig = config[plugin.name];
+        publicConfig[plugin.name] = config[plugin.name];
       }
       plugin.init(pluginConfig);
     });

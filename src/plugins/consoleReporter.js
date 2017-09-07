@@ -1,3 +1,5 @@
+const api = require('../api');
+
 let quiet = false;
 const ready = () => {
   if(!quiet){
@@ -30,22 +32,17 @@ const errorHandler = err => {
 };
 
 const initialized = (config) => {
-  if(config && config.hasOwnProperty('quiet')){
-    quiet = !!config.quiet;
-  }
+  quiet = !!config.public.quiet;
   if(!quiet){
     console.log('[ConsoleReporter] Initialized');
   }
 };
 
-const events = {
-  ready,
-  errorHandler,
-  disconnectHandler,
-  reconnecting,
-  join
-};
+const events = {};
+events[api.events.READY] = ready;
+events[api.events.ERROR] = errorHandler;
+events[api.events.DISCONNECTED] = disconnectHandler;
+events[api.events.RECONNECTED] = reconnecting;
+events[api.events.JOIN_SERVER] = join;
 
-module.exports = (Plugin) => {
-  return new Plugin('consoleReporter', [], events, initialized);
-};
+module.exports = new api.Plugin('consoleReporter', [], events, initialized);

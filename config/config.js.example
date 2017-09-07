@@ -1,9 +1,18 @@
 module.exports = {
+  // the string the bot looks for starting a command message
   prefix: '!',
 
+  // set up an app & bot for yourself at
   // https://discordapp.com/developers/applications/me
+  // then insert your secret values here
   token: '',
   client_id: '',
 
-  rollbar: ''
+  // public configuration available for all plugins to see
+  public: {
+    quiet: false
+  },
+
+  // individual plugins get private config sections that match their name
+  rollbar: false
 };

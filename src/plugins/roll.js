@@ -1,3 +1,4 @@
+const api = require('../api');
 const RollDice = require('rolldice');
 
 const roll = (bot, msg, suffix) => {
@@ -24,8 +25,6 @@ const roll = (bot, msg, suffix) => {
 
 const helpText = 'Roll some dice. To see syntax, enter !roll help or !roll syntax';
 const rollAliases = ['roll', 'r'];
+const commands = rollAliases.map(name => new api.Command(name, roll, helpText));
 
-module.exports = (Plugin) => {
-  let commands = rollAliases.map(name => new Plugin.Command(name, roll, helpText));
-  return new Plugin('roll', commands);
-};
+module.exports = new api.Plugin('roll', commands);

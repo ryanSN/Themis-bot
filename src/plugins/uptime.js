@@ -1,5 +1,10 @@
-'use strict';
-const _ = require('lodash');
+// Supported config options
+// {
+//   uptime: {
+//     format: 'fancy' - Either 'fancy' or 'simple' for text or numeric output
+//   }
+// }
+const api = require('../api');
 let startupTime = new Date().getTime();
 let connectionTime = startupTime;
 let fancyOutput = true;
@@ -38,7 +43,9 @@ const since = (timestamp) => {
 };
 
 const pad = (num, amt) => {
-  return _.padStart('' + num, amt || 2, '0');
+  let x = ('' + num).split('');
+  while(x.length < (amt || 2)) x.unshift('0');
+  return x.join('');
 };
 
 const getSimpleTime = (elapsedTime) => {
@@ -89,17 +96,19 @@ const onReconnect = () => {
 };
 
 const init = (config) => {
-  if(config && config.hasOwnProperty('format')){
-    fancyOutput = config.format === 'fancy';
+  if(config.uptime && config.uptime.hasOwnProperty('format')){
+    fancyOutput = config.uptime.format === 'fancy';
   }
   console.log('Initializing uptime plugin, fancy output:', fancyOutput);
 };
 
-const setup = (Plugin) => {
-  let uptimeCommand = new Plugin.Command('uptime', uptimeRequest, 'Displays the bot\'s current uptime');
-  let events = { reconnecting: onReconnect };
-  
-  return new Plugin('uptime', [uptimeCommand], events, init);
-};
+let uptimeCommand = new api.Command('uptime', uptimeRequest, 'Displays the bot\'s current uptime');
+let events = {};
+events[api.events.RECONNECTED] = onReconnect;
 
-module.exports = setup;
+module.exports = new api.Plugin(
+  'uptime',
+  [uptimeCommand],
+  events,
+  init
+);

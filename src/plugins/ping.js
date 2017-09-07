@@ -1,3 +1,3 @@
-module.exports = (Plugin) => {
-  return Plugin.Simple('ping', (client, msg) => msg.reply('pong'), '... PONG!');
-};
+const api = require('../api');
+
+module.exports = api.util.simplePlugin('ping', (client, msg) => msg.reply('pong'), '... PONG!');

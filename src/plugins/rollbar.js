@@ -1,23 +1,33 @@
-const rollbar = require('rollbar');
+// Supported config options
+// {
+//   rollbar: { .. startup options to pass to rollbar .. }
+// }
+const Rollbar = require('rollbar');
+const api = require('../api');
+let rollbar = null;
 
 let rollbarEnabled = false;
 
 const init = (config) => {
-  if(config && config.key){
-    rollbar.init(config.key);
-    rollbar.handleUncaughtExceptions(config.key, config.options || { exitOnUncaughtException: true });
-    rollbarEnabled = true;
+  if(config.rollbar){
+    try{
+      rollbar = new Rollbar(config.rollbar);
+      rollbarEnabled = true;
+    } catch(err) {
+      console.error('[rollbar] error while configuring plugin', err);
+    }
   } else {
-    console.warn('No rollbar config found. Rollbar error handler disabled.');
+    console.info('[rollbar] error handler disabled.');
   }
 };
 
 const rollbarErrorHandler = (err) => {
   if(rollbarEnabled){
-    rollbar.log(err);
+    rollbar.error(err);
   }
 };
 
-module.exports = (Plugin) => {
-  return new Plugin('rollbar', [], { error: rollbarErrorHandler }, init);
-};
+const events = {};
+events[api.events.ERROR] = rollbarErrorHandler;
+
+module.exports = new api.Plugin('rollbar', [], events, init);
