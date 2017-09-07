@@ -22,5 +22,10 @@ const roll = (bot, msg, suffix) => {
   msg.channel.send(response);
 };
 
-exports.name = 'roll';
-exports.cmd = roll;
+const helpText = 'Roll some dice. To see syntax, enter !roll help or !roll syntax';
+const rollAliases = ['roll', 'r'];
+
+module.exports = (Plugin) => {
+  let commands = rollAliases.map(name => new Plugin.Command(name, roll, helpText));
+  return new Plugin('roll', commands);
+};

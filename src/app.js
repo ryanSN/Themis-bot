@@ -2,11 +2,12 @@ const Discord = require('discord.js');
 const config = require('../config/config');
 const helpers = require('./helpers');
 
-const commandDirectory = helpers.resolvePath(__dirname, 'commands');
-const eventsDirectory = helpers.resolvePath(__dirname, 'events');
+const pluginsDirectory = helpers.resolvePath(__dirname, 'plugins');
 
-// discover all of the chatbot commands
-const commands = helpers.loadCommands(commandDirectory);
+const plugins = helpers.loadPlugins(pluginsDirectory);
+plugins.initialize(config);
+
+const commands = plugins.getCommandHash();
 
 /**
  * Method that runs the Commands
@@ -46,7 +47,7 @@ const start = () => {
   const client = new Discord.Client();
 
   client.on('message', (msg) => handleMessage(client, msg));
-  helpers.loadEvents(client, eventsDirectory);
+  plugins.configureEvents(client);
 
   client.login(config.token)
     .then(() => {
