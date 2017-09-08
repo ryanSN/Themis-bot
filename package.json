@@ -27,12 +27,14 @@
   "devDependencies": {
     "chai": "^4.0.2",
     "coveralls": "^2.11.15",
-    "eslint": "^4.1.0",
+    "eslint": "^4.6.0",
     "istanbul": "^1.0.0-alpha.2",
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "discord.js": "^11.0.0",
-    "rollbar": "^2.0.4"
+    "discord.js": "^11.1.0",
+    "lodash": "^4.17.4",
+    "rollbar": "^2.0.4",
+    "rolldice": "^2.0.0"
   }
 }
