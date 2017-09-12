@@ -1,5 +1,7 @@
 /**
  * Flatten an array and return the flattened array
+ * @memberof module:themis/helpers
+ * @inner
  * @param {Array} arrays 
  * @returns {Array} 
  */

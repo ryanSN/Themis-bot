@@ -1,12 +1,30 @@
 const Command = require('./Command');
 const Plugin = require('./Plugin');
-const KNOWN_EVENTS = require('./events');
+const events = require('./events');
 
 /** @module themis/api */
+/**
+ * The Command constructor
+ * @type {Command}
+ */
 exports.Command = Command;
+/**
+ * The Plugin constructor
+ * @type {Plugin}
+ */
 exports.Plugin = Plugin;
-exports.events = KNOWN_EVENTS;
-/** Utility functions to assist defining a plugin */
+/**
+ * The events supported by Themis
+ * @namespace events
+ * @memberof module:themis/api
+ */
+exports.events = events;
+
+/**
+ * Utility functions to assist defining a plugin
+ * @namespace util
+ * @memberof module:themis/api
+ */
 exports.util = {
   /**
    * Create a simple plugin for a single chat command

@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-
 /**
  * Shortcut to path.resolve(string...)
+ * @memberof module:themis/helpers
+ * @inner
  * @param {...string} args - the path parts to join and resolve
  */
 function resolvePath() {
@@ -11,6 +12,8 @@ function resolvePath() {
 
 /**
  * Scan a directory, returning absolute paths for all files in that path
+ * @memberof module:themis/helpers
+ * @inner
  * @param {string} directoryPath - the path to scan
  */
 const scanDirectory = (directoryPath) => {
@@ -23,6 +26,8 @@ const scanDirectory = (directoryPath) => {
 
 /**
  * Require all of the JS or JSON files in a directory and return the array
+ * @memberof module:themis/helpers
+ * @inner
  * @param {string} directoryPath - the path to scan
  * @param {Function} [validate] - a function to ensure that the required file presents the correct API
  */

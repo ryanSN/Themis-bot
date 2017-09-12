@@ -1,5 +1,7 @@
 /**
  * Search something for duplicates, and return any found duplicates as an array
+ * @memberof module:themis/helpers
+ * @inner
  * @param {Iterable} iterable - the iterable thing to search for duplicates
  * @param {Function} [selector] - a function to select the value to be compared, defaults to identity
  * @returns {Array}

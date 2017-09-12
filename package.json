@@ -8,7 +8,8 @@
     "test": "mocha",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --compilers js:babel-register -R spec",
     "test:debug": "mocha --debug-brk",
-    "coveralls": "./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "coveralls": "./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "jsdoc": "jsdoc src -r -d docs -R README.md"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "coveralls": "^2.11.15",
     "eslint": "^4.6.0",
     "istanbul": "^1.0.0-alpha.2",
+    "jsdoc": "^3.5.4",
     "mocha": "^3.2.0"
   },
   "dependencies": {
