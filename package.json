@@ -29,7 +29,7 @@
     "coveralls": "^2.11.15",
     "eslint": "^4.6.0",
     "istanbul": "^1.0.0-alpha.2",
-    "mocha": "^3.2.0"
+    "mocha": "^4.0.0"
   },
   "dependencies": {
     "discord.js": "^11.1.0",
