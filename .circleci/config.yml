@@ -7,19 +7,21 @@ jobs:
     steps:
       - checkout
       - run:
-        name: update-npm
-        command: 'sudo npm install -g npm@latest'
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-      - run: npm install
+      - run:
+          name: npm install
+          command: npm install
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
       - run:
-        name: npm test-cov
-        command: npm run test-cov
+          name: npm test-cov
+          command: npm run test-cov
       - store_artifacts:
-        path: coverage
-        prefix: coverage
+          path: coverage
+          prefix: coverage
