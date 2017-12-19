@@ -28,8 +28,6 @@ jobs:
   - deploy:
       machine:
         enabled: true
-      requires:
-        - build
       docker:
         - image: circleci/node:8.9.3
       working_directory: ~/themis-bot
@@ -47,8 +45,7 @@ workflows:
               - build
           filters:
             branches:
-              only:
-                - master
+              only: master
       - deploy:
           requires:
             - hold
