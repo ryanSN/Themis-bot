@@ -6,9 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "mocha",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --compilers js:babel-register -R spec",
-    "test:debug": "mocha --debug-brk",
-    "coveralls": "./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test-cov": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test:debug": "mocha --debug-brk"
   },
   "repository": {
     "type": "git",
@@ -27,12 +26,14 @@
   "devDependencies": {
     "chai": "^4.0.2",
     "coveralls": "^2.11.15",
-    "eslint": "^4.1.0",
+    "eslint": "^4.6.0",
     "istanbul": "^1.0.0-alpha.2",
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "discord.js": "^11.0.0",
-    "rollbar": "^2.0.4"
+    "discord.js": "^11.1.0",
+    "lodash": "^4.17.4",
+    "rollbar": "^2.0.4",
+    "rolldice": "^2.0.0"
   }
 }
