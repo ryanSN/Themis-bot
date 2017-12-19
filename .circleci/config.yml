@@ -1,27 +1,58 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/node:8.9.3
-    working_directory: ~/theme-bot
-    steps:
-      - checkout
-      - run:
-          name: update-npm
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: npm install
-          command: npm install
-      - save_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: npm test-cov
-          command: npm run test-cov
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
+  - build:
+      docker:
+        - image: circleci/node:8.9.3
+      working_directory: ~/themis-bot
+      steps:
+        - checkout
+        - run:
+            name: update-npm
+            command: 'sudo npm install -g npm@latest'
+        - restore_cache:
+            keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+        - run:
+            name: npm install
+            command: npm install
+        - save_cache:
+            key: v1-dependencies-{{ checksum "package.json" }}
+            paths:
+              - node_modules
+        - run:
+            name: npm test-cov
+            command: npm run test-cov
+        - store_artifacts:
+            path: coverage
+            prefix: coverage
+  - deploy:
+      machine:
+        enabled: true
+      filters:
+        branches:
+          only:
+            - master
+      requires:
+        - build
+      docker:
+        - image: circleci/node:8.9.3
+      working_directory: ~/themis-bot
+      run:
+        name: deploy
+        command: 'echo fake deploy wee'
+workflows:
+  version: 2
+  build-test-and-approval-deploy:
+    jobs:
+      - build
+      - hold:
+          type: approval
+          requires:
+              - build
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - hold
