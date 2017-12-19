@@ -28,10 +28,6 @@ jobs:
   - deploy:
       machine:
         enabled: true
-      filters:
-        branches:
-          only:
-            - master
       requires:
         - build
       docker:
