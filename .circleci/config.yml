@@ -1,5 +1,5 @@
 version: 2
-jobs
+jobs:
   checkout_code:
     docker:
       - image: circleci/node:8
