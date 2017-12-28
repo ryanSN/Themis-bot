@@ -45,8 +45,6 @@ jobs:
     machine:
       enabled: true
     working_directory: ~/themis-bot
-    docker:
-      - image: circleci/node:8.9.3
     steps:
       - restore_cache:
           keys:
