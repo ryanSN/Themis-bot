@@ -1,5 +1,54 @@
-version: 2.0
+# version: 2.0
+#
+# jobs:
+#   build:
+#     docker:
+#       - image: circleci/node:8.9.3
+#     working_directory: ~/theme-bot
+#     steps:
+#       - checkout
+#       - run:
+#           name: update-npm
+#           command: 'sudo npm install -g npm@latest'
+#       - restore_cache:
+#           keys:
+#           - v1-dependencies-{{ checksum "package.json" }}
+#       - run:
+#           name: npm install
+#           command: npm install
+#       - save_cache:
+#           key: v1-dependencies-{{ checksum "package.json" }}
+#           paths:
+#             - node_modules
+#       - run:
+#           name: npm test-cov
+#           command: npm run test-cov
+#       - store_artifacts:
+#           path: coverage
+#           prefix: coverage
+#   deploy:
+#     machine:
+#       enabled: true
+#     steps:
+#       - run:
+#          name: deploy Bot
+#          command: 'echo bot deploy!'
+#
+#
+#
+# workflows:
+#   version: 2
+#   build-and-deploy:
+#     jobs:
+#       - build
+#       - hold:
+#           type: approval
+#       - deploy
+#           requires:
+#            - hold
+#           filters: *filter-only-master
 
+version: 2
 jobs:
   build:
     docker:
@@ -12,7 +61,7 @@ jobs:
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: npm install
           command: npm install
@@ -20,30 +69,21 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
+  test:
+    docker:
+      - image: circleci/node:8.9.3
+    working_directory: ~/theme-bot
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: npm test-cov
           command: npm run test-cov
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
-  deploy:
-    machine:
-      enabled: true
-    steps:
-      - run:
-         name: deploy Bot
-         command: 'echo bot deploy!'
-
-
-
 workflows:
   version: 2
-  build-and-deploy:
+  build_and_test:
     jobs:
       - build
-      - hold:
-          type: approval
-      - deploy
-          requires:
-           - hold
-          filters: *filter-only-master
+      - test
