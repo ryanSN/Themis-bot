@@ -33,6 +33,8 @@ jobs:
         - restore_cache:
             keys:
               - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+        - restore_cache:
+            keys:
               - v1-node-modules-{{ .Environment.CIRCLE_SHA1 }}
         - run:
             name: test
