@@ -25,3 +25,22 @@ jobs:
       - store_artifacts:
           path: coverage
           prefix: coverage
+  deploy:
+    steps:
+      - run:
+         name: deploy Bot
+         command: 'echo bot deploy!'
+
+
+
+workflows:
+  version: 2
+
+  deploy:
+    jobs:
+      - hold:
+          type: approval
+      - deploy
+         requires:
+           - hold
+          filters: *filter-only-master
