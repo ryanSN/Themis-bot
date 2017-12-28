@@ -20,7 +20,10 @@ jobs:
       - checkout
       - run:
           name: Test
-          command: npm test
+          command: ls
+      - run:
+          name: node_modules
+          command: ls node_modules
       - run:
           name: Generate code coverage
           command: npm run test-cov
