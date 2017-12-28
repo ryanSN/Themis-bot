@@ -17,7 +17,8 @@ jobs:
     docker:
       - image: circleci/node:8.9.3
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/themis-bot
       - run:
           name: Test
           command: ls
