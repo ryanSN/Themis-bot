@@ -39,6 +39,8 @@ jobs:
             command: npm run test-cov
         - save_cache:
             key: v1-build-{{ .Environment.CIRCLE_SHA1 }}
+            paths:
+              - ~/themis-bot
 
 
   deploy:
