@@ -1,4 +1,5 @@
-version: 2
+version: 2.0
+
 jobs:
   build:
     docker:
@@ -26,6 +27,8 @@ jobs:
           path: coverage
           prefix: coverage
   deploy:
+    machine:
+      enabled: true
     steps:
       - run:
          name: deploy Bot
@@ -35,8 +38,7 @@ jobs:
 
 workflows:
   version: 2
-
-  deploy:
+  build-and-deploy:
     jobs:
       - build
       - hold:
