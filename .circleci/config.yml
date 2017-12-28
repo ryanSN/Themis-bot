@@ -67,7 +67,7 @@ workflows:
       - install_dependencies:
           requires:
             - checkout_code
-      - test:
+      - build_and_test:
           requires:
             - install_dependencies
       - hold:
