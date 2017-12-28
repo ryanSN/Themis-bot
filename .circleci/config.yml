@@ -44,6 +44,6 @@ workflows:
       - hold:
           type: approval
       - deploy
-         requires:
+          requires:
            - hold
           filters: *filter-only-master
