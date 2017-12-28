@@ -16,6 +16,7 @@ jobs:
           paths:
             - node_modules
   test:
+    working_directory: ~/themis-bot
     docker:
       - image: circleci/node:8.9.3
     steps:
