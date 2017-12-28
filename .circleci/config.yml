@@ -51,45 +51,46 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/themis-bot
     docker:
       - image: circleci/node:8.9.3
-    working_directory: ~/theme-bot
     steps:
       - checkout
       - run:
-          name: update-npm
+          name: Update npm
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: npm install
+          name: Install npm
           command: npm install
       - save_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
+  test:
+    docker:
+      - image: circleci/node:8.9.3
+    steps:
+      - checkout
       - run:
-          name: npm test-cov
+          name: Test
+          command: npm test
+      - run:
+          name: Generate code coverage
           command: npm run test-cov
       - store_artifacts:
           path: coverage
           prefix: coverage
-  test:
-    docker:
-      - image: circleci/node:8.9.3
-    working_directory: ~/theme-bot
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: npm test-cov
-          command: npm run test-cov
+
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
