@@ -1,47 +1,85 @@
 version: 2
-jobs:
-  build:
+jobs
+  checkout_code:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/themis-bot
+    steps:
+      - checkout
+      - save_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/themis-bot
+
+  install_dependencies:
     working_directory: ~/themis-bot
     docker:
       - image: circleci/node:8
     steps:
-      - checkout
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - run: npm install
-      - run: npm run test
-      - persist_to_workspace:
-          root: ~/themis-bot
+      - save_cache:
+          key: v1-node-modules-{{ .Environment.CIRCLE_SHA1 }}
           paths:
-            - node_modules
-  test:
+            - ~/themis-bot/node_modules
+
+  build_and_test:
+      working_directory: ~/themis-bot
+      docker:
+        - image: circleci/node:8
+      steps:
+        - restore_cache:
+            keys:
+              - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+              - v1-node-modules-{{ .Environment.CIRCLE_SHA1 }}
+        - run:
+            name: test
+            command: npm run test-cov
+        - save_cache:
+            key: v1-build-{{ .Environment.CIRCLE_SHA1 }}
+
+
+  deploy:
+    machine:
+      enabled: true
     working_directory: ~/themis-bot
     docker:
       - image: circleci/node:8.9.3
     steps:
-      - checkout:
-          path: ~/themis-bot
-      - attach_workspace:
-          at: ~/themis-bot
+      - restore_cache:
+          keys:
+            - v1-build-{{ .Environment.CIRCLE_SHA1 }}
       - run:
-          name: Test
-          command: ls
-      - run:
-          name: node_modules
-          command: ls node_modules
-      - run:
-          name: Generate code coverage
-          command: npm run test-cov
+          name: prune npm node_modules
+          command: npm prune --production
       - store_artifacts:
-          path: coverage
-          prefix: coverage
+          path: .
+      - run:
+          name: deploy
+          command: 'echo push to prod!'
+
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - checkout_code
+      - install_dependencies:
+          requires:
+            - checkout_code
       - test:
           requires:
-            - build
+            - install_dependencies
+      - hold:
+          type: approval
+          requires:
+            - test
           filters:
             branches:
-              only: master
+              only:
+                - master
+      - deploy:
+          requires:
+            - hold
