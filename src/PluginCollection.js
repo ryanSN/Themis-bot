@@ -75,7 +75,7 @@ class PluginCollection {
 
   /**
    * Initializes each plugin with a scoped chunk of the config data matching its plugin name
-   * @param {*} config 
+   * @param {*} config
    */
   initialize(config) {
     let publicConfig = {};
@@ -85,8 +85,8 @@ class PluginCollection {
 
     this.plugins.forEach(plugin => {
       let pluginConfig = { public: publicConfig };
-      if(config.hasOwnProperty(plugin.name) && PROHIBITED_CONFIG_SECTIONS.indexOf(plugin.name) < 0){
-        publicConfig[plugin.name] = config[plugin.name];
+      if(config.hasOwnProperty(plugin.name) && PROHIBITED_CONFIG_SECTIONS.indexOf(plugin.name) < 0) {
+        pluginConfig[plugin.name] = config[plugin.name];
       }
       plugin.init(pluginConfig);
     });
