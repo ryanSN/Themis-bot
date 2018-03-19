@@ -1,30 +1,59 @@
 const api = require('../api');
 const RollDice = require('rolldice');
 
-const roll = (bot, msg, suffix) => {
-  if(!suffix.trim()){
-    suffix = '2d6';
+/**
+ * Handle rolling dice
+ * @param {string} input
+ * @param {boolean} isDetailed
+ */
+const roll = (input, isDetailed) => {
+  if(!input.trim()){
+    input = '2d6';
   }
-  let rollResult = new RollDice(suffix);
-  let response = '';
-  
-  if(rollResult.special){
-    response = rollResult.special;
-  } else if(rollResult.isValid){
-    let label = rollResult.label ? ` for ${rollResult.label}` : '';
-    response = `You rolled ${rollResult.result}${label}\r\nDetails: ${rollResult.details}`;
+  //check for multiple inputs
+  if(input.indexOf('|') >= 0){
+    return input.split('|')
+      .filter(x=>x.trim())
+      .map((x, idx) => `${idx+1}: ` + new RollDice(x, {detailed: isDetailed}).toString())
+      .join('\r\n');
   } else {
-    response = 'Invalid syntax. Try !roll help';
+    return new RollDice(input, { detailed: isDetailed }).toString();
   }
-
-  if(response.length > 2000){
-    response = response.substr(0, 1996) + '...';
-  }
-  msg.channel.send(response);
 };
 
-const helpText = 'Roll some dice. To see syntax, enter !roll help or !roll syntax';
-const rollAliases = ['roll', 'r'];
-const commands = rollAliases.map(name => new api.Command(name, roll, helpText));
+/**
+ * Command handler to roll dice
+ * @param {*} bot
+ * @param {*} msg
+ * @param {string} suffix
+ */
+const simpleRoll = (bot, msg, suffix) => {
+  const isDetailed = suffix.toLowerCase().indexOf('detailed') === 0;
+  if(isDetailed){
+    suffix = suffix.substr(8);
+  }
+  const result = roll(suffix, isDetailed);
+  msg.reply(result, { split: { append: '...' }});
+};
+
+/**
+ * Command handler to roll dice
+ * @param {*} bot
+ * @param {*} msg
+ * @param {string} suffix
+ */
+const detailedRoll = (bot, msg, suffix) => {
+  const isDetailed = suffix.toLowerCase().indexOf('quiet') !== 0;
+  if(!isDetailed){
+    suffix = suffix.substr(6);
+  }
+  const result = roll(suffix, isDetailed);
+  msg.reply(result, { split: { append: '...' }});
+};
+
+const commands = [
+  new api.Command('r', simpleRoll, 'Roll some dice (simple results). Enter !r help or !r syntax to see dice rolling syntax'),
+  new api.Command('roll', detailedRoll, 'Roll some dice (detailed results). Enter !roll help or !roll syntax to see dice rolling syntax')
+];
 
 module.exports = new api.Plugin('roll', commands);

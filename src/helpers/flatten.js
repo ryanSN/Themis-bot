@@ -1,7 +1,9 @@
 /**
  * Flatten an array and return the flattened array
- * @param {Array} arrays 
- * @returns {Array} 
+ * @memberof module:themis/helpers
+ * @inner
+ * @param {Array} arrays
+ * @returns {Array}
  */
 const flatten = (arrays) => {
   let result = [];

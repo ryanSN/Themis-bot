@@ -45,4 +45,8 @@ If you would like to contribute to this project, fork it, and send a pull reques
 
 # License
 
+<<<<<<< HEAD
 [GPL v3.0](LICENSE)
+=======
+[GPL v3.0](LICENSE)
+>>>>>>> 143a1ad84a3e9e5e7c0909dd1dd4470e3f03ec3a
