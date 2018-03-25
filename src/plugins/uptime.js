@@ -11,10 +11,7 @@ let fancyOutput = true;
 
 /**
  * Gets the plural or singular form
-<<<<<<< HEAD
-=======
  * @private
->>>>>>> 143a1ad84a3e9e5e7c0909dd1dd4470e3f03ec3a
  * @param {number} value
  * @param {string} singular
  * @param {string} plural
@@ -24,8 +21,6 @@ const pluralize = (value, singular, plural) => {
   return value === 1 ? singular : plural;
 };
 
-<<<<<<< HEAD
-=======
 /**
  * An object detailing how much time has passed
  * @typedef TimeInterval
@@ -43,7 +38,6 @@ const pluralize = (value, singular, plural) => {
  * @param {number} timestamp
  * @returns {TimeInterval}
  */
->>>>>>> 143a1ad84a3e9e5e7c0909dd1dd4470e3f03ec3a
 const since = (timestamp) => {
   let now = new Date().getTime();
   let diff = now - timestamp;

@@ -43,14 +43,12 @@ class PluginCollection {
     if(duplicateCommands.length){
       throw new Error('The following duplicate commands have been detected: ' + duplicateCommands.map(x => x.name).join(', '));
     }
-<<<<<<< HEAD
-    /** @member {themisPlugins.Plugin[]} plugins - the array of plugins for this collection */
-=======
+
     /**
+     * * @member {themisPlugins.Plugin[]} plugins - the array of plugins for this collection
      * the array of plugins for this collection
      * @type {Plugin[]}
-     */
->>>>>>> 143a1ad84a3e9e5e7c0909dd1dd4470e3f03ec3a
+    */
     this.plugins = plugins;
   }
 
