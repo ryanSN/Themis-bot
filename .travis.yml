@@ -1,8 +1,8 @@
 dist: trusty
 language: node_js
 node_js:
-  - "7.4.0"
+  - "8.10.0"
 install:
-  - npm install
+  - yarn
 script:
-  - npm test
+  - yarn test

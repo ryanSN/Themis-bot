@@ -27,35 +27,34 @@ class Plugin {
    * @param {*} events - the hash of event callback functions
    * @param {module:themis/api.PluginSetupCallback} init - the setup function for this plugin
    */
-  constructor(name, commands, events, init){
-    if(!name){
+  constructor(name, commands, events, init) {
+    if (!name) {
       throw new Error('You must specify a name for your plugin.');
     }
-    if(!commands) {
+    if (!commands) {
       commands = [];
       console.warn('No commands specified for plugin ' + name);
     }
-    if(!(commands instanceof Array)){
+    if (!(commands instanceof Array)) {
       throw new Error('You must specify commands as an array of command definitions.');
     }
 
-    if(!events){
+    if (!events) {
       events = {};
     } else {
       let tempEvents = {};
-      for(let declaredEvent in events){
-        if(validEvents.indexOf(declaredEvent) > -1){
+      for (let declaredEvent in events) {
+        if (validEvents.indexOf(declaredEvent) > -1) {
           tempEvents[declaredEvent] = events[declaredEvent];
         }
       }
       events = tempEvents;
     }
 
-
-    if(init == null){
+    if (init == null) {
       init = () => {};
     }
-    if(!(init instanceof Function)){
+    if (!(init instanceof Function)) {
       throw new Error('Invalid init function type: ' + typeof init);
     }
     /** @prop {string} name - the plugin's name */

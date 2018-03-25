@@ -5,7 +5,7 @@
  * @param {Object} obj - the source object
  * @returns {Array} - the array of values
  */
-const getValues = (obj) => {
+const getValues = obj => {
   return Object.keys(obj).map(key => obj[key]);
 };
 

@@ -7,14 +7,15 @@ const RollDice = require('rolldice');
  * @param {boolean} isDetailed
  */
 const roll = (input, isDetailed) => {
-  if(!input.trim()){
+  if (!input.trim()) {
     input = '2d6';
   }
   //check for multiple inputs
-  if(input.indexOf('|') >= 0){
-    return input.split('|')
-      .filter(x=>x.trim())
-      .map((x, idx) => `${idx+1}: ` + new RollDice(x, {detailed: isDetailed}).toString())
+  if (input.indexOf('|') >= 0) {
+    return input
+      .split('|')
+      .filter(x => x.trim())
+      .map((x, idx) => `${idx + 1}: ` + new RollDice(x, { detailed: isDetailed }).toString())
       .join('\r\n');
   } else {
     return new RollDice(input, { detailed: isDetailed }).toString();
@@ -29,11 +30,11 @@ const roll = (input, isDetailed) => {
  */
 const simpleRoll = (bot, msg, suffix) => {
   const isDetailed = suffix.toLowerCase().indexOf('detailed') === 0;
-  if(isDetailed){
+  if (isDetailed) {
     suffix = suffix.substr(8);
   }
   const result = roll(suffix, isDetailed);
-  msg.reply(result, { split: { append: '...' }});
+  msg.reply(result, { split: { append: '...' } });
 };
 
 /**
@@ -44,16 +45,24 @@ const simpleRoll = (bot, msg, suffix) => {
  */
 const detailedRoll = (bot, msg, suffix) => {
   const isDetailed = suffix.toLowerCase().indexOf('quiet') !== 0;
-  if(!isDetailed){
+  if (!isDetailed) {
     suffix = suffix.substr(6);
   }
   const result = roll(suffix, isDetailed);
-  msg.reply(result, { split: { append: '...' }});
+  msg.reply(result, { split: { append: '...' } });
 };
 
 const commands = [
-  new api.Command('r', simpleRoll, 'Roll some dice (simple results). Enter !r help or !r syntax to see dice rolling syntax'),
-  new api.Command('roll', detailedRoll, 'Roll some dice (detailed results). Enter !roll help or !roll syntax to see dice rolling syntax')
+  new api.Command(
+    'r',
+    simpleRoll,
+    'Roll some dice (simple results). Enter !r help or !r syntax to see dice rolling syntax'
+  ),
+  new api.Command(
+    'roll',
+    detailedRoll,
+    'Roll some dice (detailed results). Enter !roll help or !roll syntax to see dice rolling syntax'
+  )
 ];
 
 module.exports = new api.Plugin('roll', commands);

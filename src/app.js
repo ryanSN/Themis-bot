@@ -24,9 +24,9 @@ const commands = plugins.getCommandHash();
  * @param  {String} suffix - any child commands
  */
 const callCmd = (cmd, bot, msg, suffix) => {
-  try{
+  try {
     cmd(bot, msg, suffix);
-  } catch(err){
+  } catch (err) {
     bot.emit('error', err);
   }
 };
@@ -36,7 +36,10 @@ const handleMessage = (client, msg) => {
     return;
   }
 
-  const command = msg.content.toLowerCase().split(' ')[0].substring(1);
+  const command = msg.content
+    .toLowerCase()
+    .split(' ')[0]
+    .substring(1);
   const suffix = msg.content.substring(command.length + 2);
   const cmd = commands[command];
 
@@ -53,19 +56,23 @@ const handleMessage = (client, msg) => {
 const start = () => {
   const client = new Discord.Client();
 
-  client.on('message', (msg) => handleMessage(client, msg));
+  client.on('message', msg => handleMessage(client, msg));
   plugins.configureEvents(client);
 
-  client.login(config.token)
-    .then(() => {
-      console.info(`Ready to serve in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
-      console.info(`Command prefix: ${config.prefix}`);
+  client.login(config.token).then(() => {
+    console.info(
+      `Ready to serve in ${client.channels.size} channels on ${
+        client.guilds.size
+      } servers, for a total of ${client.users.size} users.`
+    );
+    console.info(`Command prefix: ${config.prefix}`);
 
-      client.generateInvite(['READ_MESSAGES', 'SEND_MESSAGES', 'MENTION_EVERYONE', 'EMBED_LINKS'])
-        .then(link => {
-          console.info(`Invite the bot: ${link}`);
-        });
-    });
+    client
+      .generateInvite(['READ_MESSAGES', 'SEND_MESSAGES', 'MENTION_EVERYONE', 'EMBED_LINKS'])
+      .then(link => {
+        console.info(`Invite the bot: ${link}`);
+      });
+  });
 };
 
 module.exports = {

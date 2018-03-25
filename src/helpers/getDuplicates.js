@@ -7,17 +7,17 @@
  * @returns {Array}
  */
 const getDuplicates = (iterable, selector) => {
-  if(!selector) selector = (x) => x;
+  if (!selector) selector = x => x;
 
   let duplicates = new Map();
-  for(let item of iterable){
+  for (let item of iterable) {
     let val = selector(item);
     duplicates.set(val, (duplicates.get(val) || 0) + 1);
   }
 
   let results = [];
-  for(let [key, count] of duplicates){
-    if(count > 1) results.push(key);
+  for (let [key, count] of duplicates) {
+    if (count > 1) results.push(key);
   }
   return results;
 };
