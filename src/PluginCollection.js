@@ -40,6 +40,7 @@ class PluginCollection {
     if(duplicateCommands.length){
       throw new Error('The following duplicate commands have been detected: ' + duplicateCommands.map(x => x.name).join(', '));
     }
+    
     /**
      * the array of plugins for this collection
      * @type {Plugin[]}
@@ -89,8 +90,8 @@ class PluginCollection {
 
     this.plugins.forEach(plugin => {
       let pluginConfig = { public: publicConfig };
-      if(config.hasOwnProperty(plugin.name) && PROHIBITED_CONFIG_SECTIONS.indexOf(plugin.name) < 0){
-        publicConfig[plugin.name] = config[plugin.name];
+      if(config.hasOwnProperty(plugin.name) && PROHIBITED_CONFIG_SECTIONS.indexOf(plugin.name) < 0) {
+        pluginConfig[plugin.name] = config[plugin.name];
       }
       plugin.init(pluginConfig);
     });
