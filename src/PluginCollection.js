@@ -9,10 +9,7 @@ const PROHIBITED_CONFIG_SECTIONS = [
 
 /**
  * A list of supported events that plugins may process
-<<<<<<< HEAD
-=======
  * @private
->>>>>>> 143a1ad84a3e9e5e7c0909dd1dd4470e3f03ec3a
  */
 const KNOWN_EVENTS = helpers.getValues(api.events);
 
@@ -94,7 +91,7 @@ class PluginCollection {
 
     this.plugins.forEach(plugin => {
       let pluginConfig = { public: publicConfig };
-      if(config.hasOwnProperty(plugin.name) && PROHIBITED_CONFIG_SECTIONS.indexOf(plugin.name) < 0){
+      if(config.hasOwnProperty(plugin.name) && PROHIBITED_CONFIG_SECTIONS.indexOf(plugin.name) < 0) {
         pluginConfig[plugin.name] = config[plugin.name];
       }
       plugin.init(pluginConfig);
