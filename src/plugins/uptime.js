@@ -11,15 +11,33 @@ let fancyOutput = true;
 
 /**
  * Gets the plural or singular form
- * @param {number} value 
- * @param {string} singular 
- * @param {string} plural 
+ * @private
+ * @param {number} value
+ * @param {string} singular
+ * @param {string} plural
  * @returns {string}
  */
 const pluralize = (value, singular, plural) => {
   return value === 1 ? singular : plural;
 };
 
+/**
+ * An object detailing how much time has passed
+ * @typedef TimeInterval
+ * @private
+ * @prop {number} milliseconds
+ * @prop {number} seconds
+ * @prop {number} minutes
+ * @prop {number} hours
+ * @prop {number} days
+ */
+
+/**
+ * Get the amount of time since the provided timestamp
+ * @private
+ * @param {number} timestamp
+ * @returns {TimeInterval}
+ */
 const since = (timestamp) => {
   let now = new Date().getTime();
   let diff = now - timestamp;
@@ -42,16 +60,33 @@ const since = (timestamp) => {
   };
 };
 
+/**
+ * Pad a number with leading zeroes
+ * @private
+ * @param {number} num - the  number to pad
+ * @param {number} [amt] - the amount of zeroes needed, default 2
+ * @returns {string}
+ */
 const pad = (num, amt) => {
   let x = ('' + num).split('');
   while(x.length < (amt || 2)) x.unshift('0');
   return x.join('');
 };
 
+/**
+ * Get a simple string showing how much time has passed
+ * @private
+ * @param {TimeInterval} elapsedTime
+ */
 const getSimpleTime = (elapsedTime) => {
   return `${elapsedTime.days}:${pad(elapsedTime.hours)}:${pad(elapsedTime.minutes)}:${pad(elapsedTime.seconds)}.${pad(elapsedTime.milliseconds, 4)}`;
 };
 
+/**
+ * Get a nice english string showing how much time has passed
+ * @private
+ * @param {TimeInterval} elapsedTime
+ */
 const getFancyTime = (elapsedTime) => {
   let daysLabel = pluralize(elapsedTime.days, 'day', 'days');
   let hoursLabel = pluralize(elapsedTime.hours, 'hour', 'hours');
@@ -75,7 +110,8 @@ const getFancyTime = (elapsedTime) => {
 
 /**
  * Return a string representation of the time since the specified timestamp
- * @param {number} timestamp 
+ * @private
+ * @param {number} timestamp
  * @returns {string}
  */
 const getTimeSince = (timestamp) => {
