@@ -5,11 +5,11 @@
  * @param {Array} arrays
  * @returns {Array}
  */
-const flatten = (arrays) => {
+const flatten = arrays => {
   let result = [];
-  if(arrays && arrays instanceof Array){
-    for(let item of arrays){
-      if(item instanceof Array){
+  if (arrays && arrays instanceof Array) {
+    for (let item of arrays) {
+      if (item instanceof Array) {
         result.push(...flatten(item));
       } else {
         result.push(item);

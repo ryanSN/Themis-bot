@@ -8,12 +8,12 @@ let rollbar = null;
 
 let rollbarEnabled = false;
 
-const init = (config) => {
-  if(config.rollbar){
-    try{
+const init = config => {
+  if (config.rollbar) {
+    try {
       rollbar = new Rollbar(config.rollbar);
       rollbarEnabled = true;
-    } catch(err) {
+    } catch (err) {
       console.error('[rollbar] error while configuring plugin', err);
     }
   } else {
@@ -21,8 +21,8 @@ const init = (config) => {
   }
 };
 
-const rollbarErrorHandler = (err) => {
-  if(rollbarEnabled){
+const rollbarErrorHandler = err => {
+  if (rollbarEnabled) {
     rollbar.error(err);
   }
 };

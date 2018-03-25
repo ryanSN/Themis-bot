@@ -2,38 +2,38 @@ const api = require('../api');
 
 let quiet = false;
 const ready = () => {
-  if(!quiet){
+  if (!quiet) {
     console.info('[Ready] Bot is now ready!');
   }
 };
 
 const join = evt => {
-  if(!quiet){
+  if (!quiet) {
     console.info(`[Join] Joined server "${evt.name}".`);
   }
 };
 
 const reconnecting = () => {
-  if(!quiet){
+  if (!quiet) {
     console.info('[Reconnecting] Attempting to reconnect to Discord...');
   }
 };
 
 const disconnectHandler = evt => {
-  if(!quiet){
+  if (!quiet) {
     console.info(`[Disconnected] Clean: ${evt.wasClean} Code ${evt.code}; Reason: ${evt.reason}`);
   }
 };
 
 const errorHandler = err => {
-  if(!quiet){
+  if (!quiet) {
     console.error('[ERROR]', err);
   }
 };
 
-const initialized = (config) => {
+const initialized = config => {
   quiet = !!config.public.quiet;
-  if(!quiet){
+  if (!quiet) {
     console.log('[ConsoleReporter] Initialized');
   }
 };

@@ -1,17 +1,17 @@
 module.exports = {
   apps: [
     {
-      name: "Themis-bot",
-      script: "src\\index.js",
+      name: 'Themis-bot',
+      script: 'src\\index.js',
       watch: true,
       env: {
-        NODE_ENV: "development"
+        NODE_ENV: 'development'
       },
       env_production: {
-        NODE_ENV: "production"
+        NODE_ENV: 'production'
       },
       instances: 1,
-      exec_mode: "fork"
+      exec_mode: 'fork'
     }
   ]
-}
+};

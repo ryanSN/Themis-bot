@@ -16,12 +16,11 @@ function resolvePath() {
  * @inner
  * @param {string} directoryPath - the path to scan
  */
-const scanDirectory = (directoryPath) => {
+const scanDirectory = directoryPath => {
   directoryPath = path.resolve(directoryPath);
-  return fs.readdirSync(directoryPath)
-    .map(fname => {
-      return path.join(directoryPath, fname);
-    });
+  return fs.readdirSync(directoryPath).map(fname => {
+    return path.join(directoryPath, fname);
+  });
 };
 
 /**
@@ -32,15 +31,15 @@ const scanDirectory = (directoryPath) => {
  * @param {Function} [validate] - a function to ensure that the required file presents the correct API
  */
 const requireAll = (directoryPath, validate) => {
-  if(!validate || !(validate instanceof Function)){
+  if (!validate || !(validate instanceof Function)) {
     validate = x => !!x;
   }
 
   return scanDirectory(directoryPath)
     .map(filename => {
       let ext = (path.extname(filename) || '').toLowerCase();
-      if(ext === '.js' || ext === '.json'){
-        if(require.cache.hasOwnProperty(require.resolve(filename))){
+      if (ext === '.js' || ext === '.json') {
+        if (Object.prototype.hasOwnProperty.call(require.resolve, filename)) {
           delete require.cache[require.resolve(filename)];
         }
         return require(filename);

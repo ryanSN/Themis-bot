@@ -12,8 +12,7 @@ const { resolvePath, scanDirectory, requireAll } = require('./fsHelpers');
 /**
  * AN helper.
  */
-const helper = () => {
-};
+const helper = () => {};
 
 /**
  * @ignore

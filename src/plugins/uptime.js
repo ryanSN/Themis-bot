@@ -38,7 +38,7 @@ const pluralize = (value, singular, plural) => {
  * @param {number} timestamp
  * @returns {TimeInterval}
  */
-const since = (timestamp) => {
+const since = timestamp => {
   let now = new Date().getTime();
   let diff = now - timestamp;
 
@@ -69,7 +69,7 @@ const since = (timestamp) => {
  */
 const pad = (num, amt) => {
   let x = ('' + num).split('');
-  while(x.length < (amt || 2)) x.unshift('0');
+  while (x.length < (amt || 2)) x.unshift('0');
   return x.join('');
 };
 
@@ -78,8 +78,10 @@ const pad = (num, amt) => {
  * @private
  * @param {TimeInterval} elapsedTime
  */
-const getSimpleTime = (elapsedTime) => {
-  return `${elapsedTime.days}:${pad(elapsedTime.hours)}:${pad(elapsedTime.minutes)}:${pad(elapsedTime.seconds)}.${pad(elapsedTime.milliseconds, 4)}`;
+const getSimpleTime = elapsedTime => {
+  return `${elapsedTime.days}:${pad(elapsedTime.hours)}:${pad(elapsedTime.minutes)}:${pad(
+    elapsedTime.seconds
+  )}.${pad(elapsedTime.milliseconds, 4)}`;
 };
 
 /**
@@ -87,23 +89,29 @@ const getSimpleTime = (elapsedTime) => {
  * @private
  * @param {TimeInterval} elapsedTime
  */
-const getFancyTime = (elapsedTime) => {
+const getFancyTime = elapsedTime => {
   let daysLabel = pluralize(elapsedTime.days, 'day', 'days');
   let hoursLabel = pluralize(elapsedTime.hours, 'hour', 'hours');
   let minutesLabel = pluralize(elapsedTime.minutes, 'minute', 'minutes');
   let secondsLabel = pluralize(elapsedTime.seconds, 'second', 'seconds');
 
-  if(elapsedTime.days){
-    return `${elapsedTime.days} ${daysLabel}, ${elapsedTime.hours} ${hoursLabel}, ${elapsedTime.minutes} ${minutesLabel}`;
+  if (elapsedTime.days) {
+    return `${elapsedTime.days} ${daysLabel}, ${elapsedTime.hours} ${hoursLabel}, ${
+      elapsedTime.minutes
+    } ${minutesLabel}`;
   }
-  if(elapsedTime.hours){
+  if (elapsedTime.hours) {
     return `${elapsedTime.hours} ${hoursLabel}, ${elapsedTime.minutes} ${minutesLabel}`;
   }
-  if(elapsedTime.minutes){
+  if (elapsedTime.minutes) {
     return `${elapsedTime.minutes} ${minutesLabel}, ${elapsedTime.seconds} ${secondsLabel}`;
   }
-  if(elapsedTime.seconds){
-    return `${elapsedTime.seconds} ${secondsLabel} and ${elapsedTime.milliseconds} ${pluralize(elapsedTime.milliseconds, 'millisecond', 'milliseconds')}`;
+  if (elapsedTime.seconds) {
+    return `${elapsedTime.seconds} ${secondsLabel} and ${elapsedTime.milliseconds} ${pluralize(
+      elapsedTime.milliseconds,
+      'millisecond',
+      'milliseconds'
+    )}`;
   }
   return '..realistically an infinite amount of time..';
 };
@@ -114,9 +122,9 @@ const getFancyTime = (elapsedTime) => {
  * @param {number} timestamp
  * @returns {string}
  */
-const getTimeSince = (timestamp) => {
+const getTimeSince = timestamp => {
   let elapsedTime = since(timestamp);
-  if(fancyOutput){
+  if (fancyOutput) {
     return getFancyTime(elapsedTime);
   } else {
     return getSimpleTime(elapsedTime);
@@ -124,27 +132,26 @@ const getTimeSince = (timestamp) => {
 };
 
 const uptimeRequest = (client, msg) => {
-  msg.reply(`I've been running for ${getTimeSince(startupTime)} and online for ${getTimeSince(connectionTime)}.`);
+  msg.reply(
+    `I've been running for ${getTimeSince(startupTime)} and online for ${getTimeSince(
+      connectionTime
+    )}.`
+  );
 };
 
 const onReconnect = () => {
   connectionTime = new Date().getTime();
 };
 
-const init = (config) => {
-  if(config.uptime && config.uptime.hasOwnProperty('format')){
+const init = config => {
+  if (config.uptime && config.uptime.hasOwnProperty('format')) {
     fancyOutput = config.uptime.format === 'fancy';
   }
   console.log('Initializing uptime plugin, fancy output:', fancyOutput);
 };
 
-let uptimeCommand = new api.Command('uptime', uptimeRequest, 'Displays the bot\'s current uptime');
+let uptimeCommand = new api.Command('uptime', uptimeRequest, "Displays the bot's current uptime");
 let events = {};
 events[api.events.RECONNECTED] = onReconnect;
 
-module.exports = new api.Plugin(
-  'uptime',
-  [uptimeCommand],
-  events,
-  init
-);
+module.exports = new api.Plugin('uptime', [uptimeCommand], events, init);

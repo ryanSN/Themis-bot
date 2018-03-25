@@ -10,7 +10,7 @@ describe('ping', () => {
     expect(ping.commands).to.have.length(1);
   });
 
-  it('should return pong', () => {  
+  it('should return pong', () => {
     const message = {
       mentions: {
         content: 'ping'
