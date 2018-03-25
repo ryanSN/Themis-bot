@@ -2,7 +2,7 @@ version: 2
 jobs:
   checkout_code:
     docker:
-      - image: circleci/node:7.4
+      - image: circleci/node:8
     working_directory: ~/themis-bot
     steps:
       - checkout
@@ -14,7 +14,7 @@ jobs:
   install_dependencies:
     working_directory: ~/themis-bot
     docker:
-      - image: circleci/node:7.4
+      - image: circleci/node:8
     steps:
       - restore_cache:
           keys:
@@ -28,7 +28,7 @@ jobs:
   build_and_test:
       working_directory: ~/themis-bot
       docker:
-        - image: circleci/node:7.4
+        - image: circleci/node:8
       steps:
         - restore_cache:
             keys:
