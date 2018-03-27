@@ -10,7 +10,7 @@ A Simple Discord chat bot using the [Discord.js](https://github.com/hydrabolt/di
 
 ## Why the name Themis?!
 
-_Themis is an ancient Greek Titaness. She is described as "[the Lady] of good counsel", and is the personification of divine order, fairness, law, natural law, and custom. Her symbols are the Scales of Justice, tools used to remain balanced and pragmatic. Themis means "divine law" rather than human ordinance,..._ (Source)[https://en.wikipedia.org/wiki/Themis]
+_Themis is an ancient Greek Titaness. She is described as "[the Lady] of good counsel", and is the personification of divine order, fairness, law, natural law, and custom. Her symbols are the Scales of Justice, tools used to remain balanced and pragmatic. Themis means "divine law" rather than human ordinance,..._ [Source](https://en.wikipedia.org/wiki/Themis)
 
 ## Getting Started
 
