@@ -27,7 +27,8 @@
   "devDependencies": {
     "chai": "^4.0.2",
     "coveralls": "^3.0.0",
-    "eslint": "^4.6.0",
+    "eslint": "^5.0.0",
+    "husky": "^0.14.3",
     "husky": "^1.0.0",
     "istanbul": "^1.0.0-alpha.2",
     "lint-staged": "^7.0.0",
