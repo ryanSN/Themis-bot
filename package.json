@@ -34,7 +34,7 @@
     "lint-staged": "^7.0.0",
     "mocha": "^5.0.0",
     "mocha-lcov-reporter": "^1.3.0",
-    "prettier": "1.12.1"
+    "prettier": "1.13.0"
   },
   "dependencies": {
     "commander": "^2.15.0",
