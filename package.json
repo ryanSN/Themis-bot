@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "mocha",
-    "test-cov":
-      "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "coveralls": "./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "jsdoc": "jsdoc src -r -d docs -R README.md",
     "test:debug": "mocha --debug-brk",
@@ -18,7 +17,11 @@
     "type": "git",
     "url": "git+https://github.com/ryanSN/Themis-bot.git"
   },
-  "keywords": ["bot", "discord", "node"],
+  "keywords": [
+    "bot",
+    "discord",
+    "node"
+  ],
   "author": "Ryan Chatterton (ryanSN)",
   "license": "ISC",
   "bugs": {
@@ -26,9 +29,8 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.5",
     "eslint": "^6.0.0",
-    "husky": "^3.0.1",
     "husky": "^3.0.1",
     "istanbul": "^1.0.0-alpha.2",
     "lint-staged": "^9.0.0",
@@ -44,6 +46,9 @@
     "rolldice": "^3.0.0"
   },
   "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "git add"]
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
