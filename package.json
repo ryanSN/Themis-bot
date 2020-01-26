@@ -34,7 +34,7 @@
     "husky": "^3.0.1",
     "istanbul": "^1.0.0-alpha.2",
     "lint-staged": "^9.0.0",
-    "mocha": "^6.1.2",
+    "mocha": "^7.0.1",
     "mocha-lcov-reporter": "^1.3.0",
     "prettier": "1.19.0"
   },
