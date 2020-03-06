@@ -42,7 +42,7 @@
     "commander": "^4.0.0",
     "discord.js": "^11.3.2",
     "lodash": "^4.17.13",
-    "rollbar": "^2.2.9",
+    "rollbar": "^2.4.1",
     "rolldice": "^3.0.0"
   },
   "lint-staged": {
