@@ -41,7 +41,7 @@
   "dependencies": {
     "commander": "^4.0.0",
     "discord.js": "^11.3.2",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.15",
     "rollbar": "^2.2.9",
     "rolldice": "^3.0.0"
   },
