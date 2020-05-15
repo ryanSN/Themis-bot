@@ -44,9 +44,9 @@
     "commander": "^4.1.1",
     "discord.js": "^11.6.4",
     "lodash": "^4.17.15",
-    "rollbar": "^2.15.2",
+    "rollbar": "^2.16.0",
     "rolldice": "^3.0.0",
-    "snyk": "^1.316.1"
+    "snyk": "^1.316.1",
   },
   "lint-staged": {
     "*.{js,json,css,md}": [
