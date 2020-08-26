@@ -41,9 +41,10 @@
     "prettier": "1.19.0"
   },
   "dependencies": {
+    "@discordjs/uws": "^10.149.0",
     "commander": "^4.1.1",
     "discord.js": "^11.6.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "rollbar": "^2.16.0",
     "rolldice": "^3.0.0",
     "snyk": "^1.321.0"
