@@ -38,7 +38,7 @@ jobs:
             - v1-node-modules-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: test
-          command: npm run test-cov
+          command: npm run test
       - save_cache:
           key: v1-build-{{ .Environment.CIRCLE_SHA1 }}
           paths:
