@@ -2,7 +2,7 @@ version: 2
 jobs:
   checkout_code:
     docker:
-      - image: circleci/node:8.10
+      - image: circleci/node:10.19
     working_directory: ~/themis-bot
     steps:
       - checkout
@@ -14,7 +14,7 @@ jobs:
   install_dependencies:
     working_directory: ~/themis-bot
     docker:
-      - image: circleci/node:8.10
+      - image: circleci/node:10.19
     steps:
       - restore_cache:
           keys:
@@ -26,24 +26,23 @@ jobs:
             - ~/themis-bot/node_modules
 
   build_and_test:
-      working_directory: ~/themis-bot
-      docker:
-        - image: circleci/node:8.10
-      steps:
-        - restore_cache:
-            keys:
-              - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-        - restore_cache:
-            keys:
-              - v1-node-modules-{{ .Environment.CIRCLE_SHA1 }}
-        - run:
-            name: test
-            command: npm run test-cov
-        - save_cache:
-            key: v1-build-{{ .Environment.CIRCLE_SHA1 }}
-            paths:
-              - ~/themis-bot
-
+    working_directory: ~/themis-bot
+    docker:
+      - image: circleci/node:10.19
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-node-modules-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: test
+          command: npm run test
+      - save_cache:
+          key: v1-build-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/themis-bot
 
   deploy:
     machine:
@@ -61,7 +60,6 @@ jobs:
       - run:
           name: deploy
           command: 'echo push to prod!'
-
 
 workflows:
   version: 2
