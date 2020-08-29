@@ -47,7 +47,7 @@
     "minimist": "^1.2.5",
     "rollbar": "^2.16.0",
     "rolldice": "^3.0.0",
-    "snyk": "^1.385.0"
+    "snyk": "^1.385.1"
   },
   "lint-staged": {
     "*.{js,json,css,md}": [
