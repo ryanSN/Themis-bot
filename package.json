@@ -45,7 +45,7 @@
     "discord.js": "^11.6.4",
     "lodash": "^4.17.19",
     "minimist": "^1.2.5",
-    "rollbar": "^2.16.0",
+    "rollbar": "^2.19.3",
     "rolldice": "^3.0.0",
     "snyk": "^1.385.0"
   },
