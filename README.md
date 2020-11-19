@@ -1,4 +1,4 @@
-<img src="https://circleci.com/favicon.ico" width=24 height=24/> [![CircleCI](https://circleci.com/gh/ryanSN/Themis-bot.svg?style=shield)](https://circleci.com/gh/ryanSN/Themis-bot)
+![CI](https://github.com/ryanSN/Themis-bot/workflows/CI/badge.svg)
 <img src="https://cdn.travis-ci.org/images/favicon-c566132d45ab1a9bcae64d8d90e4378a.svg" width=24 height=24/> [![Build Status](https://travis-ci.org/ryanSN/Themis-bot.svg?branch=master)](https://travis-ci.org/ryanSN/Themis-bot)
 <img src="https://coveralls.io/favicon.png" width=24 height=24 /> [![Coverage Status](https://coveralls.io/repos/github/ryanSN/Themis-bot/badge.svg?branch=master)](https://coveralls.io/github/ryanSN/Themis-bot?branch=master)
 <img src="https://res.cloudinary.com/snyk/image/upload/v1468845142/favicon/favicon.png" width=24 height=24/> [![Known Vulnerabilities](https://snyk.io/test/github/ryansn/themis-bot/badge.svg)](https://snyk.io/test/github/ryansn/themis-bot)
@@ -20,17 +20,17 @@ You will need to make an application, then make a bot for that application. Once
 
 # Commands
 
-* `!ping`
-* `!uptime`
-* `!roll syntax` or `!r syntax` or `!roll 1d20`...
+- `!ping`
+- `!uptime`
+- `!roll syntax` or `!r syntax` or `!roll 1d20`...
 
 ## Local Development / installation
 
-* install [node.js]
-* Run `yarn`
-* Copy `config/config.js.example` to `config/config.js`
-* Enter any relevant authentication or API keys for your bot into `config/config.js`
-* Run `yarn start`
+- install [node.js]
+- Run `yarn`
+- Copy `config/config.js.example` to `config/config.js`
+- Enter any relevant authentication or API keys for your bot into `config/config.js`
+- Run `yarn start`
 
 # Developing plugins
 
