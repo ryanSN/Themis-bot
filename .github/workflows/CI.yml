@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '10.19'
       - run: yarn install
-      - run: yarn test
+      - run: yarn test-cov
         env:
           CI: true
       - run: yarn run coveralls

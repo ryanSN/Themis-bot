@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "mocha",
-    "test-cov": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "test-cov": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls",
     "jsdoc": "jsdoc src -r -d docs -R README.md",
     "test:debug": "mocha --debug-brk",
     "format": "./node_modules/.bin/prettier --write src/**/*.js test/**/*.js",
