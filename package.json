@@ -43,10 +43,10 @@
     "commander": "^4.1.1",
     "discord.js": "^11.6.4",
     "lodash": "^4.17.21",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "rollbar": "^2.21.1",
     "rolldice": "^3.0.0",
-    "snyk": "^1.522.0"
+    "snyk": "^1.685.0"
   },
   "lint-staged": {
     "*.{js,json,css,md}": [
