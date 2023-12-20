@@ -41,12 +41,12 @@
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
     "commander": "^4.1.1",
-    "discord.js": "^11.6.4",
+    "discord.js": "^13.14.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "rollbar": "^2.21.1",
     "rolldice": "^3.0.0",
-    "snyk": "^1.522.0"
+    "snyk": "^1.996.0"
   },
   "lint-staged": {
     "*.{js,json,css,md}": [
